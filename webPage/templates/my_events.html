@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}My Events{% endblock %}
+{% block content %}
+  <style>
+    .background-image {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: 90vh;
+      /* background-image: url("https://nstatic.nova.bg/public/pics/nova/article/980x551_1624419096.jpg"); */
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      margin: 20px auto;
+      border-radius: 30px;
+    }
+    .fade-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+      z-index: 1;
+      border-radius: 30px;
+    }
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding-left: 20px;
+      color: #fff;
+      z-index: 2;
+    }
+    .event-info {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    .qr-code {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-gap: 20px;
+    }
+    .card {
+      position: relative;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: transparent;
+      border: none;
+      color: rgb(255, 0, 0);
+      font-size: 1.5rem;
+      z-index: 3;
+    }
+  </style>
+
+  <h1 align="center">My Events</h1>
+  <p align="center">Currently logged in as: <b>{{ user.email }}</b></p>
+
+  <div class="grid-container">
+    {% for event in user.events %}
+      <div class="background-image" style="background-image: url('{{event.background_image_filename}}');">
+        <div class="fade-effect"></div>
+          <div class="overlay">
+            <h1 class="event-info">{{ event.name | upper }}</h1>
+            <p class="event-info">Detailed information:</p>
+            <p class="event-info">Price: {{ event.price }} tg</p>
+            <p class="event-info">Date: {{ event.day }}</p>
+            <p class="event-info">Time: {{ event.time }}</p>
+            <p class="event-info">Place: {{ event.place }}</p>
+            <p class="event-info">Description: {{ event.data }}</p>
+            <p class="event-info"><a href="{{ event.link }}" style="color: rgb(50, 146, 255);">Link</a></p>
+            <p class="event-info" style="color: rgba(255, 255, 255, 0.5);">Created date: {{ event.date }}</p>
+            <img src="{{event.qr_code_image_filename}}" alt="QR Code" class="qr-code">
+          </div>
+          <button type="button" class="close" onClick="deleteEvent( {{ event.id }} )">
+            <span aria-hidden="true" style="color: rgb(255, 0, 0);">DELETE&times;</span>
+          </button>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

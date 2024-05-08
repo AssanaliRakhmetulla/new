@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Create Event{% endblock %}
+{% block content %}
+<style>
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  td {
+    padding: 8px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  textarea,
+  input[type="url"] {
+    width: calc(100% - 16px);
+    padding: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
+</style>
+
+<h1>Create Event</h1>
+<p>Currently logged in as: <b>{{ user.email }}</b></p>
+
+<form method="POST">
+  <table>
+    <tr>
+      <td><label for="name">Name:</label></td>
+      <td><input type="text" name="name" id="name" required placeholder="Name of event"></td>
+    </tr>
+    <tr>
+      <td><label for="day">Date:</label></td>
+      <td><input type="date" name="day" id="day" required placeholder="Date of event"></td>
+    </tr>
+    <tr>
+      <td><label for="price">Price:</label></td>
+      <td><input type="number" name="price" id="price" required placeholder="Price of ticket"></td>
+    </tr>
+    <tr>
+      <td><label for="time">Time:</label></td>
+      <td><input type="time" name="time" id="time" required placeholder="Assigned time"></td>
+    </tr>
+    <tr>
+      <td><label for="event">Description:</label></td>
+      <td><textarea name="event" id="event" class="form-control" required placeholder="Add a little description or introduction..."></textarea></td>
+    </tr>
+    <tr>
+      <td><label for="place">Place:</label></td>
+      <td><input type="text" name="place" id="place" required placeholder="Location or place"></td>
+    </tr>
+    <tr>
+      <td><label for="link">Link:</label></td>
+      <td><input type="url" name="link" id="link" placeholder="Telegram / WhatsApp chat URL"></td>
+    </tr>
+    <tr>
+      <td><label for="background_image">Background Image:</label></td>
+      <td><input type="url" name="background_image" id="background_image" accept="image/*" required placeholder="Background image URL"></td>
+    </tr>
+    <tr>
+      <td><label for="qr_code_image">QR Code Image:</label></td>
+      <td><input type="url" name="qr_code_image" id="qr_code_image" accept="image/*" required placeholder="QR code URL"></td>
+    </tr>
+  </table>
+
+  <br />
+  <div align="center">
+    <input type="submit" class="btn btn-primary" value="Add Event">
+  </div>
+</form>
+{% endblock %}
